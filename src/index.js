@@ -30,7 +30,11 @@ function onSearch(e) {
 }
 
 function onLoadMore() {
+
     fetchPictures()
+    scroll()
+    console.log(refs.gallery.clientHeight) 
+
 }
 
 function appendPicturesMarkup(pictures) {
@@ -47,4 +51,12 @@ function fetchPictures() {
         appendPicturesMarkup(pictures);
         loadMoreBtn.enable()
     });
+}
+
+function scroll() {
+    let i = refs.gallery.clientHeight;
+    setTimeout(() => {
+window.scrollTo({ top: i, behavior: 'smooth' });
+    }, 500)
+    
 }
