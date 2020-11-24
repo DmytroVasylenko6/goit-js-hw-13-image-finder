@@ -15,6 +15,11 @@ const refs = {
     gallery: document.querySelector('.gallery'),
     galleryItem: document.querySelector('.photo-card')
 }
+
+const loadMoreBtn = new LoadMoreBtn({selector: '[data-action="load-more"]', hidden: true})
+
+refs.searchForm.addEventListener('submit', onSearch);
+loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
 refs.gallery.addEventListener('click', onImageClick)
 
 function onImageClick(event) {
@@ -26,11 +31,6 @@ function onImageClick(event) {
 
   instance.show()
 }
-
-const loadMoreBtn = new LoadMoreBtn({selector: '[data-action="load-more"]', hidden: true})
-
-refs.searchForm.addEventListener('submit', onSearch);
-loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
 
 const picturesApiService = new PicturesApiServise();
 
@@ -79,8 +79,8 @@ function clearPictureGallery() {
          appendPicturesMarkup(pictures);
          loadMoreBtn.enable();
          
-      } catch (e) {
-          errors(e)
+      } catch (er) {
+          errors(er)
           loadMoreBtn.hide() 
      }
       
@@ -99,9 +99,9 @@ function scroll(time) {
     }, time)
 }
 
-function errors(e) {
-    if (e === 'ничего не найдено') {
-      return  error({
+function errors(er) {
+    if (er === 'Ничего не найдено') {
+      return  alert({
             text: 'К сожалению по этому запросу ничего не найдено',
             type: 'info'
         })
